@@ -1,0 +1,1624 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>PDL for both Linux and Windows</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:14.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+h1
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:27.0pt;
+	text-indent:-27.0pt;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Arial","sans-serif";}
+h2
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.75in;
+	text-indent:-.5in;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Arial","sans-serif";
+	font-style:italic;}
+h3
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.5in;
+	page-break-after:avoid;
+	font-size:12.0pt;
+	font-family:"Arial","sans-serif";
+	font-style:italic;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:14.2pt;
+	text-align:justify;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:.25in;
+	margin-right:0in;
+	margin-bottom:.25in;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";
+	text-transform:uppercase;
+	font-weight:bold;
+	text-decoration:underline;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";
+	font-variant:small-caps;
+	font-weight:bold;}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";
+	font-variant:small-caps;}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:14.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:14.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:14.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p.MsoCommentSubject, li.MsoCommentSubject, div.MsoCommentSubject
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:14.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	font-weight:bold;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:14.2pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	font-family:"Calibri","sans-serif";
+	font-weight:bold;}
+p.Path, li.Path, div.Path
+	{mso-style-name:Path;
+	mso-style-link:"Path Char";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:13.5pt;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	color:#0070C0;
+	font-weight:bold;}
+span.PathChar
+	{mso-style-name:"Path Char";
+	mso-style-link:Path;
+	color:#0070C0;
+	font-weight:bold;}
+ /* Page Definitions */
+ @page Section1
+	{size:8.5in 11.0in;
+	margin:.5in .5in .5in .5in;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=Section1>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:24.0pt'>How to Use</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:24.0pt'>AMD Display Library</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:24.0pt'>(ADL)</span></b></p>
+
+<p class=MsoNormal align=center style='margin-left:0in;text-align:center'><b><span
+lang=EN-CA style='font-size:18.0pt'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'>
+
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=240 height=16></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=288 height=97 src="WhatIsADL_files/image001.gif"></td>
+ </tr>
+</table>
+
+<span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<br clear=ALL>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>                                                                        </span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=center style='margin-top:3.0pt;margin-right:0in;
+margin-bottom:12.0pt;margin-left:0in;text-align:center'><span lang=EN-CA
+style='font-size:14.0pt;font-family:"Arial","sans-serif"'>Copyright © 2009
+Advanced Micro Devices, Inc. All rights reserved.</span></p>
+
+<span lang=EN-CA style='font-size:12.0pt;font-family:"Times New Roman","serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal align=right style='margin-left:0in;text-align:right'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><b><span
+lang=EN-CA style='font-size:14.0pt'>Table of Contents</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoToc1><span
+class=MsoHyperlink><span lang=EN-CA><a href="#_Toc222761020">1.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>     </span>Introduction<span
+style='color:windowtext;display:none'>   </span><span
+style='color:windowtext;display:none'>3</span></a></span></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><span lang=EN-CA><a
+href="#_Toc222761021">2.<span lang=EN-US style='font-family:"Calibri","sans-serif";
+color:windowtext;text-transform:none;font-weight:normal;text-decoration:none'>     </span>ADL
+Binaries<span style='color:windowtext;display:none'>  </span><span style='color:windowtext;display:none'>3</span></a></span></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><span lang=EN-CA><a
+href="#_Toc222761022">3.<span lang=EN-US style='font-family:"Calibri","sans-serif";
+color:windowtext;text-transform:none;font-weight:normal;text-decoration:none'>     </span>More
+about ADL<span style='color:windowtext;display:none'>   </span><span style='color:windowtext;display:none'>4</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761023">3.1.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>API
+Naming Conventions<span style='color:windowtext;display:none;text-decoration:
+none'>  </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761024">3.2.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Threading
+and Concurrent Access<span style='color:windowtext;display:none;text-decoration:
+none'>  </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761025">3.3.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Use
+Cases<span style='color:windowtext;display:none;text-decoration:none'>  </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761026">3.4.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>General
+Workflow<span style='color:windowtext;display:none;text-decoration:none'>    </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761027">3.5.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Pack
+and Unpack Library<span style='color:windowtext;display:none;text-decoration:
+none'>   </span><span
+style='color:windowtext;display:none;text-decoration:none'>6</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761028">3.6.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Channel
+Library<span style='color:windowtext;display:none;text-decoration:none'>   </span><span
+style='color:windowtext;display:none;text-decoration:none'>7</span></a></span></span></p>
+
+<p class=MsoToc1><span class=MsoHyperlink><span lang=EN-CA><a
+href="#_Toc222761029">4.<span lang=EN-US style='font-family:"Calibri","sans-serif";
+color:windowtext;text-transform:none;font-weight:normal;text-decoration:none'>     </span>Sample
+Application<span style='color:windowtext;display:none'>   </span><span style='color:windowtext;display:none'>7</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761030">4.1.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Include
+Files from the SDK to Use<span style='color:windowtext;display:none;text-decoration:
+none'>   </span><span
+style='color:windowtext;display:none;text-decoration:none'>7</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761031">4.2.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Loading
+ADL<span style='color:windowtext;display:none;text-decoration:none'>   </span><span
+style='color:windowtext;display:none;text-decoration:none'>8</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761032">4.3.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Before
+using ADL APIs<span style='color:windowtext;display:none;text-decoration:none'>  </span><span
+style='color:windowtext;display:none;text-decoration:none'>8</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761033">4.4.<span
+lang=EN-US style='font-family:"Calibri","sans-serif";color:windowtext;
+text-transform:none;font-weight:normal;text-decoration:none'>    </span>Initializing
+ADL and providing the memory allocation function<span style='color:windowtext;
+display:none;text-decoration:none'>   </span><span
+style='color:windowtext;display:none;text-decoration:none'>9</span></a></span></span></p>
+
+<p class=MsoToc2><span class=MsoHyperlink><span lang=EN-CA style='font-variant:
+normal !important;text-transform:uppercase'><a href="#_Toc222761034"><span
+lang=EN-US>4.5.</span><span lang=EN-US style='font-family:"Calibri","sans-serif";
+color:windowtext;text-transform:none;font-weight:normal;text-decoration:none'>    </span><span
+lang=EN-US>Calling ADL APIs</span><span style='color:windowtext;display:none;
+text-decoration:none'>  </span><span
+style='color:windowtext;display:none;text-decoration:none'>10</span></a></span></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<b><span lang=EN-CA style='font-size:16.0pt;font-family:"Arial","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span></b>
+
+<h1><a name="_Toc222761020"></a><a name="_Toc192490046"><span lang=EN-CA>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-CA>Introduction</span></a><span lang=EN-CA> </span></h1>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>Prior to AMD
+Display Library (ADL), AMD provided several SDKs (PDL, DSP, CCC, COM) for
+external use under Windows, but none for Linux. The goal of ADL is to provide a
+single SDK for both operating systems and to eventually replace the other SDKs.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>The majority of the
+APIs in ADL wrap the company’s private APIs thus allowing the library’s client
+to access information related to the graphics associated with the system. ADL
+is used strictly for exposing “Graphics Hardware” support. Other hardware (such
+as CPUs, Northbridge, etc…) or software subsystems (such as Catalyst Control Center
+and HydraVision) will expose an interface via their own binaries, if they
+require one.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>ADL binaries are
+delivered as part of the Catalyst display Driver package while the
+documentation, definitions and sample code are distributed via a web-download
+as a single ZIP package. </span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h1><a name="_Toc222761021"><span lang=EN-CA>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>ADL Binaries</span></a></h1>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>For Windows XP
+32-bit and Windows Vista 32-bit operating systems, the ADL library binary is
+located in:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=Path style='margin-left:0in'><span lang=EN-CA>%WINDOWS%\System32\</span><span
+lang=EN-CA style='font-size:14.0pt'>atiadlxx.dll</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>For Windows XP 64-bit
+and Windows Vista 64-bit, there are two binaries:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=Path style='margin-left:.25in;text-indent:-.25in'><span lang=EN-CA
+style='font-family:Symbol;font-weight:normal'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>%WINDOWS%\System32\</span><span lang=EN-CA
+style='font-size:14.0pt'>atiadlxx.dll</span><span lang=EN-CA>        (Native OS
+driver)</span></p>
+
+<p class=Path style='margin-left:.25in;text-indent:-.25in'><span lang=EN-CA
+style='font-family:Symbol;font-weight:normal'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>%WINDOWS%\SysWOW64\</span><span lang=EN-CA
+style='font-size:14.0pt'>atiadlxy.dll</span><span lang=EN-CA>   (32-bit OS
+driver)</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><b><span lang=EN-CA>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>For LINUX<b> </b>OS,
+the locations and binary names are:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>Linux 32-bit
+Runtimes (32-bit OS and 64-bit OS):</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=Path style='margin-left:0in'><span lang=EN-CA>/usr/X11R6/lib/Libatiadlxx.so</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><b><span lang=EN-CA>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>Linux 64-bit
+Runtimes (64-bit OS):</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=Path style='margin-left:0in'><span lang=EN-CA>/usr/X11R6/lib64/Libatiadlxx.so</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><b><span lang=EN-CA>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><b><u><span lang=EN-CA
+style='font-size:14.0pt'>Important:</span></u></b><span lang=EN-CA> The 32-bit
+library in provided in 64-bit Windows OSes to ensure support for the <b>unmanaged
+32</b>-bit applications. These applications cannot load the native 64 bit ADL
+library therefore after a load failure they should attempt to load the 32-bit
+library. Note that both binaries have different names (not only locations). This
+will be discussed in more detail later in this document.</span></p>
+
+<b><span lang=EN-CA style='font-size:16.0pt;font-family:"Arial","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span></b>
+
+<h1><a name="_Toc222761022"><span lang=EN-CA>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>More about ADL</span></a></h1>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h2><a name="_Toc222761023"></a><a name="_Toc192490057"><span lang=EN-CA>3.1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-CA>API Naming Conventions</span></a></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>ADL provides flat
+C-style exports that are typical for Windows DLLs and Linux SO binaries.  </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>In general, ADL
+makes no assumption as to the caller’s environment.  ADL creates and destroys
+its own memory allocations, and does not provide any explicit thread safety.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>APIs that return
+data will either return simple data (via the stack), or will require the caller
+to pre-allocate the memory and provide references via the API call signature
+(API-specific).  If the ADL calls back into the caller, it will be on the same
+thread and all data will be managed by the ADL; the caller is not to attempt
+memory management of any ADL-supplied data.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The name of a
+public API starts with “<b>ADL</b>” and typically ends with “<b>Get</b>”, “<b>Set</b>”,
+or “<b>Caps</b>”. The following is an example of the naming convention:</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><b><span lang=EN-CA
+style='color:#0070C0'>&nbsp;</span></b></p>
+
+<p class=Path style='margin-left:.25in'><span lang=EN-CA>ADL_<i>Xxx</i>_<i>Yyy</i>_Get</span></p>
+
+<p class=Path style='margin-left:.25in'><span lang=EN-CA>ADL_<i>Xxx</i>_<i>Yyy</i>_Set</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><i><span lang=EN-CA>Xxx</span></i><span
+lang=EN-CA> can be set to “<b>Main</b>”, “<b>Adapter</b>”, “<b>Display</b>”,
+etc., whereas <i>Yyy</i> describes the function in detail. </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>For example:</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in;text-indent:.7pt'><b><span
+lang=EN-CA style='color:#0070C0'>ADL_Display_NumberOfDisplays_Get</span></b><span
+lang=EN-CA> is used to <span style='color:black'>retrieve the number of
+displays supported by an adapter.</span> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The return code
+is an integer describing the ADL level results.  In general, negative values
+indicate that output parameters are not valid, zero indicates normal success,
+and a positive value indicates success requiring a mode change or even a system
+restart.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>A “<b>0: Success</b>”
+result indicates that the Driver received and processed the request in a normal
+fashion, and that the output parameters can be processed as per each API’s
+specification.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The complete set
+of return values is described in the html documentation that is part of the
+SDK.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h2><a name="_Toc222761024"></a><a name="_Toc192490056"><span lang=EN-CA>3.2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-CA>Threading and Concurrent Access</span></a></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>ADL makes no
+assumption as to the threading model of the caller, and provides no threading
+control within ADL. The calling process is expected to provide thread safety in
+that the caller must ensure that only a single thread at any given time is
+active within the ADL.  The caller may use any number of threads to call into the
+ADL at different times; however, ADL does not guarantee any thread safety.  While
+some ADL API calls may survive concurrent access from multiple threads, some
+may not.  Rather than incur per-call overhead in ADL to ensure such thread
+safety, noting that many callers typically already have to deal with multiple
+thread access to internal data (often by using the same single thread to access
+its internal data and the ADL), the ADL design requires that the caller arrange
+for thread safety if it is needed.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>In cases where multiple
+processes are each using their own ADL instance to access the Driver and/or OS,
+the Driver and OS must provide multiple process safety to the channel(s) and OS
+entry point(s).  In Windows, the GDI layer uses a global mutex to ensure only a
+single call (whether from the same process or not) enters the kernel for Escape
+call processing.  Likewise, in Linux, the X-Server also ensures such single
+threading for all calls made to the X-Server across all processes and from
+within any process.  As to OS calls, the OS itself provides thread and process
+safety where needed—ADL does not augment this in any way.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h2><a name="_Toc222761025"></a><a name="_Toc192490062"><span lang=EN-CA>3.3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-CA>Use Case</span></a><span lang=EN-CA>s</span></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span lang=EN-CA>Sequential Program Type:</span></b><span
+lang=EN-CA>  The application makes one or more API calls (beyond the
+initialize/shutdown API calls) to perform a specific job, involving a series of
+steps: checking whether a needed interface is supported; checking whether a
+Feature is supported; retrieving capabilities of the Feature; retrieving
+Properties of the Feature; changing the value of the adjustable Properties; and
+invoking custom actions.  These are typically command line driven programs (such
+as command line type configuration utilities or automated test utilities) performing
+a specific task.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span lang=EN-CA>Event Driver Program Type:</span></b><span
+lang=EN-CA> The application operates by making groups of calls to the ADL based
+on responses to pre-programmed events detected and handled in the application. 
+The application itself may be single-threaded or multi-threaded. The main
+difference between event-driven and sequential programs is the overall sequence
+of accesses to AD. In <b>event-driven</b> programs, access to ADL tends to
+involve a small number of APIs grouped together in a sequence but a large
+number of APIs overall, in a group order determined by external events.  </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA>From an ADL perspective, there is no difference between types of
+such programs.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h2><a name="_Toc36880961"></a><a name="_Toc222761026"></a><a
+name="_Toc192490066"><span lang=EN-CA>3.4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>General Workflow</span></a></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>An application loads
+the ADL, and then obtains a collection of the logical adapters (corresponding to
+GPU controllers) with each entry containing basic information about each
+controller on each GPU. The most important piece of information is the <b>AdapterIndex</b>,
+which identifies a specific controller on a specific GPU. The index provides
+entry to a table of all knowable GPU controllers.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Using the <b>AdapterIndex</b>,
+the application then calls other ADL APIs to:</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal style='margin-bottom:6.0pt;margin-left:.5in;text-align:
+     left'><span lang=EN-CA>Get capabilities of a Driver Component.</span></li>
+ <li class=MsoNormal style='margin-bottom:6.0pt;margin-left:.5in;text-align:
+     left'><span lang=EN-CA>Get data related to the component.</span></li>
+ <li class=MsoNormal style='margin-bottom:6.0pt;margin-left:.5in;text-align:
+     left'><span lang=EN-CA>Set data related to the component.</span></li>
+ <li class=MsoNormal style='margin-bottom:6.0pt;margin-left:.5in;text-align:
+     left'><span lang=EN-CA>Request specific actions.</span></li>
+</ol>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Each ADL API
+method signature defines appropriate <b><i>in</i></b> and <b><i>out</i></b>
+parameters.  The caller supplies data as part of the <b><i>in</i></b>
+parameters, and the API returns data as part of the <b><i>out</i></b>
+parameters.  Additionally, the API returns an <b>ADL call status</b> (an ADL
+concept value, not a Driver Component supplied value).</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Most of the ADL
+APIs call a corresponding “pack” routine in the internal <b>Pack</b> and <b>Unpack
+Library</b> to create a message, and then sends the message to the Driver.  The
+Driver then acts upon the sent message and returns a return message as a
+result. </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Upon receipt of a
+return message from the Driver corresponding to the sent message, the API then
+calls the appropriate “unpack” routine in the internal Pack and Unpack Library
+to decode the returned message into the appropriate <b><i>out</i></b>  parameters. 
+The API then returns a result code relating to the ADL level activity.  In some
+cases, the API may perform multiple Driver calls and/or OS calls.  Calls to the
+OS do not generally use the Pack/Unpack mechanism, but instead use some OS-specific
+calling convention.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Driver Component
+errors, OS errors, etc., may be returned as <b><i>out</i></b> parameters as
+defined per API method.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Generally, an ADL
+API will take as parameters various data as defined by the header files exposed
+by AD.  It also takes a controller-specific <b>AdapterIndex</b> identifying the
+controller of a specific GPU on which to act. The Management API will call a
+Pack Library packing routine to create an appropriate message using the Driver
+header files (callers to ADL never see or need to know the Driver header
+files).  The Pack Library routine returns a message packed with the appropriate
+data for the Driver.  The API then calls the so-called “Channel Library” with
+the <b>AdapterIndex</b> and the message.  The Channel delivers the message and
+receives (synchronously inline) a response from the Driver—this is a “waiting”
+call and will stall the thread on which the call is made.  The API then unpacks
+the response message by calling the appropriate Unpack Library unpack routine,
+extracting the data and returning the data to the application via <b><i>out</i></b>
+parameters in the Service API method.  The APIs returns a result code with 0, meaning
+success.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Each OS has a
+difference scheme for identifying individual GPUs, as well as for obtaining and
+managing the collection of accessible GPUs.  On some systems, some GPUs are not
+accessible by a given user due to user privileges.  One of the primary
+principles behind the design of ADL is to program each API so it still services
+all OSes (as appropriate) with minimal (or no) conditional coding.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Even though ADL
+users do not need to know all of the internal implementation details, two
+internal libraries are of a particular importance: the Pack/Unpack library and
+the Channel library.</span></p>
+
+<h2><a name="_Toc222761027"></a><a name="_Toc192490071"><span lang=EN-CA>3.5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-CA>Pack and Unpack Library</span></a></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Prior to ADL, the
+applications coded their own pack/unpack logic (create C-type “structures” by
+stuffing them using local variables, and then validate that the values are all
+correct), and either directly route to the Driver or use a private entry point (like
+PDL) to perform the routing.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>In most cases,
+the application data is kept in various variables/locations throughout the
+application (such as embedded in UI forms or in some data store), and is
+amalgamated at I/O time, typically within some internal per-ESC-call
+application method.  ADL defines a single code implementation rather than
+having each and every program implement its own.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>Further, the ADL
+also deals with routing the requests in an OS-agnostic fashion (which PDL
+cannot, since it is purposed only for Microsoft Windows).  This provides more
+opportunity for the calling applications (including test applications) to
+reduce OS-specific coding.  While it is true that calling applications will
+still need some OS-specific code to deal with OS-specific APIs, the bulk of the
+calling application could become OS-agnostic thereby reducing development and
+testing burdens—this is one of the primary principles behind ADL.</span></p>
+
+<h2><a name="_Toc222761028"></a><a name="_Toc192490072"><span lang=EN-CA>3.6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-CA>Channel Library</span></a></h2>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The Channel
+Library is a library that is internal to ADL. It provides the OS-specific
+implementation for routing packed messages from the ADL to the Driver and to
+return a message back again for unpacking.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA> </span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>At present, there
+are three defined channels:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-top:0in;margin-right:0in;
+margin-bottom:6.0pt;margin-left:.5in;text-align:left;text-indent:-.25in'><span
+lang=EN-CA>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Windows XP channel—Uses GDI to send ESC calls to
+the Driver.</span></p>
+
+<p class=MsoNormal align=left style='margin-top:0in;margin-right:0in;
+margin-bottom:6.0pt;margin-left:.5in;text-align:left;text-indent:-.25in'><span
+lang=EN-CA>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Windows Vista channel—Uses DirectX to send ESC
+calls to the Driver.</span></p>
+
+<p class=MsoNormal align=left style='margin-top:0in;margin-right:0in;
+margin-bottom:6.0pt;margin-left:.5in;text-align:left;text-indent:-.25in'><span
+lang=EN-CA>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Linux channel—Uses AMD proprietary X-Server
+extension to communicate with the DDX driver.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>This channel
+concept can be extended to future OSes, such as Windows 7 if necessary. For
+example, discussions exists that some future Windows OS may remove the
+traditional ESC call routing for Graphics Drivers, perhaps moving to an IOCTL
+or similar functionality.  ADL Channel Library is designed to allow such new
+channels in a seamless and transparent fashion.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>On Linux, the
+format of packed messages for common functions follows Vista format. Some Linux-specific
+functions are defined separately to fit into the existing “X-extension”
+implementation.  Most of the functions generally follow the CWDDE message
+mechanism.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h1><a name="_Toc222761029"></a><a name="_Toc191192185"></a><a
+name="_Toc191227238"></a><a name="_Toc191808232"></a><a name="_Toc191880378"></a><a
+name="_Toc191192187"></a><a name="_Toc191227240"></a><a name="_Toc191808234"></a><a
+name="_Toc191880380"></a><a name="_Toc191192188"></a><a name="_Toc191227241"></a><a
+name="_Toc191808235"></a><a name="_Toc191880381"></a><a name="_Toc191192189"></a><a
+name="_Toc191227242"></a><a name="_Toc191808236"></a><a name="_Toc191880382"></a><span
+lang=EN-CA>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Sample Application</span></h1>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><em><span lang=EN-CA
+style='font-style:normal'>Provided along with ADL SDK is an unmanaged C code
+sample application that demonstrates some of the principles on how to use ADL.
+This chapter will not discuss the application in detail, but will emphasize on
+some important points.</span></em></p>
+
+<p class=MsoNormal style='margin-left:0in'><em><span lang=EN-CA
+style='font-style:normal'>&nbsp;</span></em></p>
+
+<h2><a name="_Toc222761030"><em><span lang=EN-CA style='font-family:"Arial","sans-serif";
+font-style:normal'>4.1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></em><em><span lang=EN-CA style='font-family:"Arial","sans-serif";
+font-style:normal'>Include Files from the SDK to Use</span></em></a></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The three files
+in the <b>include</b> folder are the only ones necessary for your project:</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN-CA>adl_defines.h</span></b><span
+lang=EN-CA>              Contains all defined constants.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN-CA>adl_structures.h</span></b><span
+lang=EN-CA>         Contains the definitions of all structures. </span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN-CA>adl_sdk.h                    </span></b><span
+lang=EN-CA>Contains the <b>typedef</b> of the Memory Allocation Callback
+function.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>It is sufficient
+for your project to include only <b>adl_sdk.h</b> because it includes <b>adl_structures.h</b>,
+which includes <b>adl_defines.h. </b>The three files should be located in the
+same folder.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h2><a name="_Toc222761031"><span lang=EN-CA>4.2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Loading ADL</span></a></h2>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+page-break-after:avoid;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The following
+lines from the following code sample are self-explanatory. Each OS uses a
+corresponding function to load the library (<b>atiadlxx.dll </b>for Windows
+OSes and <b>libatiadlxx.so</b> for Linux).</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+page-break-after:avoid;text-autospace:none'><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#716B00'>#if</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+<b><span style='color:#716B00'>defined</span></b> <b><span style='color:#700165'>(</span><span
+style='color:#005E5E'>LINUX</span><span style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+hDLL = dlopen( &quot;libatiadlxx.so&quot;, RTLD_LAZY|RTLD_GLOBAL);</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#716B00'>#else</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:#005E5E'>hDLL</span></b> <b><span style='color:#700165'>=</span></b>
+<b><span style='color:#005E5E'>LoadLibrary</span><span style='color:#700165'>(</span><span
+style='color:olive'>&quot;atiadlxx.dll&quot;</span><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:navy'>if</span></b> <b><span style='color:#700165'>(</span><span
+style='color:#005E5E'>hDLL</span></b> <b><span style='color:#700165'>==</span></b>
+<b><span style='color:#005E5E'>NULL</span><span style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<span style='color:green'>// A 32 bit calling application on 64 bit OS will
+fail to LoadLIbrary.</span></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<span style='color:green'>// Try to load the 32 bit library (atiadlxy.dll)
+instead</span></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<b><span style='color:#005E5E'>hDLL</span></b> <b><span style='color:#700165'>=</span></b>
+<b><span style='color:#005E5E'>LoadLibrary</span><span style='color:#700165'>(</span><span
+style='color:olive'>&quot;atiadlxy.dll&quot;</span><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#716B00'>#endif</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>While in Linux,
+the 32-bit and 64-bit libraries have the same names but are placed in different
+locations.</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>In Windows, the <b>native</b>
+library for the corresponding OS is always named <b>atiadlxx.dll</b>.<b>  </b>Thus
+a 32-bit application on a 32-bit OS will succeed with loading <b>atiadlxx.dll</b>,
+and a 64-bit application will succeed with loading <b>atiadlxx.dll</b> on a 64-bit
+OS.  The attempt of a 32-bit application to load the <b>native</b> 64-bit <b>atiadlxx.dll</b>
+on a 64-bit OS, however, will fail. Therefore the application should immediately
+attempt to load the 32-bit version of ADL (<b>atiadlxy.dll</b>).  See the code
+above and the binary locations in chapter 2.</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<h2><a name="_Toc222761032"><span lang=EN-CA>4.3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Before using ADL APIs</span></a></h2>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The provided
+example shows the steps necessary to call an ADL API:</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>For each API you plan to use, define a pointer
+to a function type using <b>typedef</b>. The typedefs may be organized as a
+separate include file. Here’re some typedefs from the sample:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:navy'>typedef</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+<b><span style='color:navy'>int</span></b> <b><span style='color:#B30000'>(</span></b>
+<b><span style='color:#B30000'>*</span><span style='color:#005E5E'>ADL_MAIN_CONTROL_CREATE</span></b>
+<b><span style='color:#B30000'>)(</span><span style='color:#005E5E'>ADL_MAIN_MALLOC_CALLBACK</span><span
+style='color:#B30000'>,</span></b> <b><span style='color:navy'>int</span></b> <b><span
+style='color:#B30000'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:navy'>typedef</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+<b><span style='color:navy'>int</span></b> <b><span style='color:#B30000'>(</span></b>
+<b><span style='color:#B30000'>*</span><span style='color:#005E5E'>ADL_MAIN_CONTROL_DESTROY</span></b>
+<b><span style='color:#B30000'>)();</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:navy'>typedef</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+<b><span style='color:navy'>int</span></b> <b><span style='color:#B30000'>(</span></b>
+<b><span style='color:#B30000'>*</span><span style='color:#005E5E'>ADL_ADAPTER_NUMBEROFADAPTERS_GET</span></b>
+<b><span style='color:#B30000'>)</span></b> <b><span style='color:#B30000'>(</span></b>
+<b><span style='color:navy'>int</span><span style='color:#B30000'>*</span></b> <b><span
+style='color:#B30000'>);</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:navy'>typedef</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> <b><span
+style='color:navy'>int</span></b> <b><span style='color:#B30000'>(</span></b> <b><span
+style='color:#B30000'>*</span><span style='color:#005E5E'>ADL_ADAPTER_ADAPTERINFO_GET</span></b>
+<b><span style='color:#B30000'>)</span></b> <b><span style='color:#B30000'>(</span></b>
+<b><span style='color:#005E5E'>LPAdapterInfo</span><span style='color:#B30000'>,</span></b>
+<b><span style='color:navy'>int</span></b> <b><span style='color:#B30000'>);</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+lang=EN-CA>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Somewhere in the code, instantiate the pointers
+of those types. Here’s the code from the sample:</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#005E5E'>ADL_MAIN_CONTROL_CREATE                              ADL_Main_Control_Create</span></b><b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#700165'>;</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#005E5E'>ADL_MAIN_CONTROL_DESTROY                            ADL_Main_Control_Destroy</span></b><b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#700165'>;</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#005E5E'>ADL_ADAPTER_NUMBEROFADAPTERS_GET         ADL_Adapter_NumberOfAdapters_Get</span></b><b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#700165'>;</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#005E5E'>ADL_ADAPTER_ADAPTERINFO_GET</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>                      <b><span
+style='color:#005E5E'>ADL_Adapter_AdapterInfo_Get</span><span style='color:
+#700165'>;</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#700165'>&nbsp;</span></b></p>
+
+<b><i><span lang=EN-CA style='font-size:14.0pt;font-family:"Arial","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span></i></b>
+
+<h2><a name="_Toc222761033"><span lang=EN-CA>4.4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-CA>Initializing ADL and providing the memory
+allocation function</span></a></h2>
+
+<p class=MsoNormal><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The main and only
+initialization API for ADL is:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-indent:.25in;text-autospace:none'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:navy'>int</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> <b><span
+style='color:#005E5E'>ADL_Main_Control_Create</span></b> <b><span
+style='color:#700165'>(</span></b> <b><span style='color:#005E5E'>ADL_MAIN_MALLOC_CALLBACK</span></b>
+<b><span style='color:#005E5E'>callback</span><span style='color:#700165'>,</span></b>
+<b><span style='color:navy'>int</span></b> <b><span style='color:#005E5E'>iEnumConnectedAdapters</span></b>
+<b><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>This function should be called
+first (the exact steps are in the next section), prior to calling any other ADL
+APIs. It initializes the library and provides the memory allocation function as
+the first parameter.</p>
+
+<p class=MsoNormal style='margin-left:.25in'> </p>
+
+<p class=MsoNormal style='margin-left:.25in'>What is it for?  Some APIs, such
+as <b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#005E5E'>ADL_Display_DisplayInfo_Get()</span></b>, get an uninitialized
+pointer as an input parameter. Then they call (already provided through “Create”)
+the memory allocation function, which allocates memory from the user’s heap.
+The user is also responsible for the de-allocation of the memory. This technique
+is illustrated through the following example.</p>
+
+<p class=MsoNormal style='margin-left:.25in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#005E5E'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:.25in'>User may provide a memory
+allocation function to serve an application’s specific needs but it could also
+be a generic one as shown in the example. Below are the memory allocation and
+de-allocation functions from the sample code:</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:green'>// Memory allocation function</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:navy'>void</span></b><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>*</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+<b><span style='color:navy'>__stdcall</span></b> <b><span style='color:#005E5E'>ADL_Main_Memory_Alloc</span></b>
+<b><span style='color:#700165'>(</span></b> <b><span style='color:navy'>int</span></b>
+<b><span style='color:#005E5E'>iSize</span></b> <b><span style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>{</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:navy'>void</span><span style='color:#700165'>*</span></b>
+<b><span style='color:#005E5E'>lpBuffer</span></b> <b><span style='color:#700165'>=</span></b>
+<b><span style='color:#005E5E'>malloc</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:#005E5E'>iSize</span></b> <b><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:navy'>return</span></b> <b><span style='color:#005E5E'>lpBuffer</span><span
+style='color:#700165'>;</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>}</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:green'>// Optional Memory de-allocation function</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:navy'>void</span></b><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+<b><span style='color:navy'>__stdcall</span></b> <b><span style='color:#005E5E'>ADL_Main_Memory_Free</span></b>
+<b><span style='color:#700165'>(</span></b> <b><span style='color:navy'>void</span><span
+style='color:#700165'>**</span></b> <b><span style='color:#005E5E'>lpBuffer</span></b>
+<b><span style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>{</span></b></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:navy'>if</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:#005E5E'>NULL</span></b> <b><span style='color:#700165'>!=</span></b>
+<b><span style='color:#700165'>*</span><span style='color:#005E5E'>lpBuffer</span></b>
+<b><span style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:#700165'>{</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<b><span style='color:#005E5E'>free</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:#700165'>*</span><span style='color:#005E5E'>lpBuffer</span></b>
+<b><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<b><span style='color:#700165'>*</span><span style='color:#005E5E'>lpBuffer</span></b>
+<b><span style='color:#700165'>=</span></b> <b><span style='color:#005E5E'>NULL</span><span
+style='color:#700165'>;</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>   
+<b><span style='color:#700165'>}</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:.25in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>}</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>The second parameter is <b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:green'>iEnumConnectedAdapters</span></b>. 
+If its value is <b>zero</b>, the adapter information will be collected only for
+the adapters that are physically present and enabled in the system. If the
+value is non-zero, information of all adapters that have ever been present
+(even currently away) in the system will be collected.</p>
+
+<p class=MsoNormal style='margin-left:0in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#700165'>&nbsp;</span></b></p>
+
+<b><i><span style='font-size:14.0pt;font-family:"Arial","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span></i></b>
+
+<h2><a name="_Toc222761034">4.5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Calling ADL APIs</a></h2>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'><span lang=EN-CA>The address of
+the desired API can be obtained by using <b>GetProcAddress</b> and the handle
+of the loaded ADL library. Since <b>ADL_Main_Control_Create()</b> must be the
+first API called, here’s how to obtain its address and call the API:</span></p>
+
+<p class=MsoNormal style='margin-left:0in'><span lang=EN-CA>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#005E5E'>ADL_Main_Control_Create</span></b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif"'> <b><span style='color:#700165'>=</span></b> <b><span
+style='color:#005E5E'>ADL_MAIN_CONTROL_CREATE</span><span style='color:#700165'>)</span><span
+style='color:#005E5E'>GetProcAddress</span><span style='color:#700165'>(</span><span
+style='color:#005E5E'>hDLL</span><span style='color:#700165'>,</span><span
+style='color:olive'>&quot;ADL_Main_Control_Create&quot;</span><span
+style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+    <b><span style='color:navy'>if</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:#005E5E'>NULL</span></b> <b><span style='color:#700165'>!=</span></b>
+<b><span style='color:#005E5E'>ADL_Main_Control_Create</span><span
+style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>         
+      <b><span style='color:#005E5E'>ADL_Err</span></b> <b><span
+style='color:#700165'>=</span></b> <b><span style='color:#005E5E'>ADL_Main_Control_Create</span></b>
+<b><span style='color:#700165'>(</span><span style='color:#005E5E'>ADL_Main_Memory_Alloc</span><span
+style='color:#700165'>,</span></b> <b><span style='color:purple'>1</span><span
+style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>The return value<b> ADL_Err</b> is
+an integer and should be <b>ADL_OK</b> to indicate successful ADL
+initialization.</p>
+
+<p class=MsoNormal style='margin-left:.25in'>Calling the other APIs should
+follow the same pattern:</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Obtain the function’s address and check for NULL.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Call the function with the proper parameters.</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Check the return code for errors.</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>In the provided sample, all
+pointers are obtained at the beginning and checked for NULL. If only one API is
+not available the application fails. It’s up to the user to decide if all
+function pointers will be obtained at once or one by one, when needed.</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>Here’s an example of how
+information about each adapter is obtained. In this example, the allocation of
+the memory for the <b>AdapterInfo</b> structure is done through <b>malloc</b>.  Most
+of the ADL APIs allocate memory that way, while some APIs (see the last
+example) use the memory allocation function whose address is passed by the
+ADL_Main_Control_Create API. The documentation points those APIs out.</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>Let’s now get the number of the
+adapters in the system.</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>     
+<b><span style='color:navy'>if</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:#005E5E'>ADL_OK</span></b> <b><span style='color:#700165'>!=</span></b>
+<b><span style='color:#005E5E'>ADL_Adapter_NumberOfAdapters_Get</span></b> <b><span
+style='color:#700165'>(</span></b> <b><span style='color:#700165'>&amp;</span><span
+style='color:#005E5E'>iNumberAdapters</span></b> <b><span style='color:#700165'>)</span></b>
+<b><span style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>      <b>{</b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>            <b><span
+style='color:#005E5E'>printf</span><span style='color:#700165'>(</span><span
+style='color:olive'>&quot;Cannot get the number of adapters!\n&quot;</span><span
+style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-indent:.5in;text-autospace:none'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:navy'>return</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> <b><span
+style='color:purple'>0</span><span style='color:#700165'>;</span></b></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;text-autospace:none'><b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#700165'> }</span></b></p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>We then check if this is a
+non-zero value and allocate memory with the size of the <b>AdapterInfo</b>
+structure times the number of adapters. We pass the pointer to this memory to <b>ADL_Adapter_AdapterInfoGet()</b>.
+Upon the function’s return, the structure(s) are filled with data corresponding
+to the graphics adapters in the system. The following is the code snippet:</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<b><span style='color:navy'>if</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:purple'>0</span></b> <b><span style='color:#700165'>&lt;</span></b>
+<b><span style='color:#005E5E'>iNumberAdapters</span></b> <b><span
+style='color:#700165'>)</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<b><span style='color:#700165'>{</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>           
+<b><span style='color:#005E5E'>lpAdapterInfo</span></b> <b><span
+style='color:#700165'>=</span></b> <b><span style='color:#005E5E'>malloc</span></b>
+<b><span style='color:#700165'>(</span></b> <b><span style='color:navy'>sizeof</span></b>
+<b><span style='color:#700165'>(</span><span style='color:#005E5E'>AdapterInfo</span><span
+style='color:#700165'>)</span></b> <b><span style='color:#700165'>*</span></b> <b><span
+style='color:#005E5E'>iNumberAdapters</span></b> <b><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>           
+<b><span style='color:#005E5E'>memset</span></b> <b><span style='color:#700165'>(</span></b>
+<b><span style='color:#005E5E'>lpAdapterInfo</span><span style='color:#700165'>,</span><span
+style='color:olive'>'\0'</span><span style='color:#700165'>,</span></b> <b><span
+style='color:navy'>sizeof</span></b> <b><span style='color:#700165'>(</span><span
+style='color:#005E5E'>AdapterInfo</span><span style='color:#700165'>)</span></b>
+<b><span style='color:#700165'>*</span></b> <b><span style='color:#005E5E'>iNumberAdapters</span></b>
+<b><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>           
+<span style='color:green'>// Get the AdapterInfo structure for all adapters in
+the system</span></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>           
+<b><span style='color:#005E5E'>ADL_Adapter_AdapterInfo_Get</span></b> <b><span
+style='color:#700165'>(</span><span style='color:#005E5E'>lpAdapterInfo</span><span
+style='color:#700165'>,</span></b> <b><span style='color:navy'>sizeof</span></b>
+<b><span style='color:#700165'>(</span><span style='color:#005E5E'>AdapterInfo</span><span
+style='color:#700165'>)</span></b> <b><span style='color:#700165'>*</span></b> <b><span
+style='color:#005E5E'>iNumberAdapters</span><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>       
+<b><span style='color:#700165'>}</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.25in'>The following example is to
+illustrate the usage of the memory allocation function whose address was passed
+as a parameter when <b>ADL_Main_Control_Create()</b> was called. As mentioned,
+one such API that relies on the memory allocated on the application’s heap is <b>ADL_Display_DisplayInfo_Get()</b>.
+ The following shows how to call this API:</p>
+
+<p class=MsoNormal style='margin-left:.25in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create a pointer to a pointer to the <b>ADLDisplayInfo </b><span
+lang=EN-CA>structure. <b>LPADLDisplayInfo</b> is predefined by ADL, so this
+line (from the sample code) will do:</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>&nbsp;</span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-indent:.5in;text-autospace:none'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#005E5E'>LPADLDisplayInfo</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> <b><span
+style='color:#005E5E'>lpAdlDisplayInfo</span></b> <b><span style='color:#700165'>=</span></b>
+<b><span style='color:#005E5E'>NULL</span><span style='color:#700165'>;</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create an integer to receive the number of displays upon the function’s
+return:</p>
+
+<p class=MsoNormal style='margin-left:0in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:navy'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in;text-indent:.5in'><b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:navy'>int</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'>  <b><span
+style='color:#005E5E'>iNumDisplays</span><span style='color:#700165'>;</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Obtain the API’s address using <b>GetProcAddress.  </b>Do not
+forget to check for NULL! </p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal align=left style='margin-left:.5in;text-align:left;
+text-autospace:none'><b><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#005E5E'>ADL_Display_DisplayInfo_Get</span></b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif"'> <b><span style='color:#700165'>=</span></b>
+<b><span style='color:#700165'>(</span><span style='color:#005E5E'>ADL_DISPLAY_DISPLAYINFO_GET</span><span
+style='color:#700165'>)</span><span style='color:#005E5E'>GetProcAddress</span><span
+style='color:#700165'>(</span><span style='color:#005E5E'>hDLL</span><span
+style='color:#700165'>,</span><span style='color:olive'>&quot;ADL_Display_DisplayInfo_Get&quot;</span><span
+style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#700165'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Call the API with the proper parameters:</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal align=left style='margin-left:0in;text-align:left;
+text-autospace:none'><span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>            <b><span
+style='color:#005E5E'>ADL_Err</span></b> <b><span style='color:#700165'>=</span></b>
+<b><span style='color:#005E5E'>ADL_Display_DisplayInfo_Get</span></b> <b><span
+style='color:#700165'>(</span><span style='color:#005E5E'>iAdapterIndex</span><span
+style='color:#700165'>,</span></b> <b><span style='color:#700165'>&amp;</span><span
+style='color:#005E5E'>iNumDisplays</span><span style='color:#700165'>,</span></b>
+<b><span style='color:#700165'>&amp;</span><span style='color:#005E5E'>lpAdlDisplayInfo,
+iForce </span><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>                        </p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><u>Important:</u></b><b> </b>Note
+that the <b>lpAdlDisplayInfo</b> pointer is <b>not</b> initialized. It is the
+ADL that calls the provided memory allocation function to allocate memory.
+Since this function is in the user’s application (<b><span style='font-size:
+10.0pt;font-family:"Arial","sans-serif";color:#005E5E'>ADL_Main_Memory_Alloc</span></b>),
+the memory is allocated from the user’s heap, and the user should de-allocate
+the memory (see below for the code example).</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:35.95pt'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in'>When the function returns
+successfully (ADL_OK), <b>iNumDisplays</b> holds the number of displays, while <b>lpAdlDisplayInfo</b>
+points to an array of <b>iNumDisplays</b> elements of <b>ADLDisplayInfo</b>
+structures.</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>In the end, do not forget to de-allocate the memory. You may use
+the already defined function in the example:</p>
+
+<p class=MsoNormal style='margin-left:0in'><b><span style='font-size:10.0pt;
+font-family:"Arial","sans-serif";color:#005E5E'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:0in;text-indent:.5in'><b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif";color:#005E5E'>ADL_Main_Memory_Free</span></b><span
+style='font-size:10.0pt;font-family:"Arial","sans-serif"'> <b><span
+style='color:#700165'>(</span></b> &amp;<b><span style='color:#005E5E'>lpAdlDisplayInfo</span></b>
+<b><span style='color:#700165'>);</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>            Note that the memory
+de-allocation helper function takes a pointer to pointer as a parameter. This
+allows the function to free the memory and set the pointer to NULL.</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'>These examples and the sample code
+should be enough for you to start using and enjoying ADL (AMD Display Library).</p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-left:0in'><i>Please do not forget that this is
+the first release. We expect your comments and suggestions in order to make
+this library more useful and easy to use.</i></p>
+
+<p class=MsoNormal style='margin-left:0in'>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

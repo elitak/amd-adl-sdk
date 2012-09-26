@@ -84,8 +84,7 @@ typedef struct _DisplayInfoStruct {
 //   display, visible rendering area for each display, and a preferred display flag.
 //
 // Input params
-//   iOSDisplayIndex - Operating system specific display index identifier. The value used should be the
-//                     index of the display used for rendering operations. On Windows operating systems,
+//   OSDisplayName - Operating system specific display name. On Windows operating systems,
 //                     the value can be queried using the EnumDisplayDevices() API.
 //
 // Output params
@@ -100,7 +99,7 @@ typedef struct _DisplayInfoStruct {
 // Return code
 //   1 - Success
 //   0 - Failure
-extern int atiEyefinityGetConfigInfo ( int iOSDisplayIndex, EyefinityInfoStruct *lpEyefinityInfo, int *lpNumDisplaysInfo, DisplayInfoStruct **lppDisplaysInfo );
+extern int atiEyefinityGetConfigInfo ( char OSDisplayName[], EyefinityInfoStruct *lpEyefinityInfo, int *lpNumDisplaysInfo, DisplayInfoStruct **lppDisplaysInfo );
 
 // Description
 //   Function used release the code from ati_eyefinity.c that manages the ADL lib.

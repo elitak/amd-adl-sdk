@@ -53,7 +53,7 @@ int atiEyefinityReleaseConfigInfo ( DisplayInfoStruct **lppDisplaysInfo )
 	return TRUE;
 }
 
-int atiEyefinityGetConfigInfo ( int iOSDisplayIndex, EyefinityInfoStruct *lpEyefinityInfo, int *lpNumDisplaysInfo, DisplayInfoStruct **lppDisplaysInfo )
+int atiEyefinityGetConfigInfo ( char OSDisplayName[], EyefinityInfoStruct *lpEyefinityInfo, int *lpNumDisplaysInfo, DisplayInfoStruct **lppDisplaysInfo )
 {
     HINSTANCE hDLL;
 
@@ -208,7 +208,7 @@ int atiEyefinityGetConfigInfo ( int iOSDisplayIndex, EyefinityInfoStruct *lpEyef
     {
 		// If this adapter/display isn't the one the calling app is asking about,
 		// jump ahead to the next one in the list
-		if (lpAdapterInfo[iCurrentAdapter].iOSDisplayIndex != iOSDisplayIndex)
+		if (0 != memcmp(lpAdapterInfo[iCurrentAdapter].strDisplayName,OSDisplayName,sizeof(OSDisplayName)))
 		{
 			continue;
 		}

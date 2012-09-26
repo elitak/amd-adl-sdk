@@ -11,44 +11,44 @@
 #include <stdio.h>
 #include "ati_eyefinity.h"
 
-#define USE_DEFAULT_DISPLAY_ID 0xFFFFFFFF
+#define DISPLAY_NAME_LEN 32
 
 int main (int c,char* k[],char* s[])
 {
 	// iOSDisplayID maps to the iDevNum input variable used by Windows to identify a display using the EnumDisplayDevices() API
-	int iOSDisplayIndex = USE_DEFAULT_DISPLAY_ID;
+	char OSDisplayName[DISPLAY_NAME_LEN];
 	EyefinityInfoStruct eyefinityInfo = {0};
 	int iNumDisplaysInfo;
 	DisplayInfoStruct *pDisplaysInfo = NULL;
+	
+	 // Get the default active display
+ 	int iDevNum = 0;
+	DISPLAY_DEVICE displayDevice;
+	int dwFlags = 0;
 
-	// Get the default active display
-	if ( iOSDisplayIndex == USE_DEFAULT_DISPLAY_ID )
+	 memset(&OSDisplayName,'\0',DISPLAY_NAME_LEN);
+	
+	displayDevice.cb = sizeof(displayDevice);
+
+	while ( EnumDisplayDevices(0, iDevNum, &displayDevice, 0) )
 	{
-		int iDevNum = 0;
-		DISPLAY_DEVICE displayDevice;
-		int dwFlags = 0;
-
-		displayDevice.cb = sizeof(displayDevice);
-
-		while ( EnumDisplayDevices(0, iDevNum, &displayDevice, 0) )
+		if (0 != (displayDevice.StateFlags & DISPLAY_DEVICE_PRIMARY_DEVICE) )
 		{
-			if (0 != (displayDevice.StateFlags & DISPLAY_DEVICE_PRIMARY_DEVICE) )
-			{
-				iOSDisplayIndex = iDevNum;
-				break;
-			}
-			iDevNum++;
+			memcpy(OSDisplayName, displayDevice.DeviceName,DISPLAY_NAME_LEN);
+			break;
 		}
+		iDevNum++;
 	}
 
+
 	// Find out if this display has an Eyefinity config enabled
-	if ( TRUE == atiEyefinityGetConfigInfo( iOSDisplayIndex, &eyefinityInfo, &iNumDisplaysInfo, &pDisplaysInfo ) )
+	if ( TRUE == atiEyefinityGetConfigInfo( OSDisplayName, &eyefinityInfo, &iNumDisplaysInfo, &pDisplaysInfo ) )
 	{
 		if ( TRUE == eyefinityInfo.iSLSActive )
 		{
 			int iCurrentDisplaysInfo = 0;
 
-			printf ( "\nEYEFINITY ENABLED for display index %i:\n", iOSDisplayIndex);
+			printf ( "\nEYEFINITY ENABLED for display name %s:\n", OSDisplayName);
 			printf ( " SLS grid is %i displays wide by %i displays tall.\n", eyefinityInfo.iSLSGridWidth, eyefinityInfo.iSLSGridHeight );
 			printf ( " SLS resolution is %ix%i pixels.\n", eyefinityInfo.iSLSWidth, eyefinityInfo.iSLSHeight );
 
@@ -75,14 +75,14 @@ int main (int c,char* k[],char* s[])
 		}
 		else
 		{
-			printf ( "\nEYEFINITY DISABLED for display index %i.\n", iOSDisplayIndex);
+			printf ( "\nEYEFINITY DISABLED for display name %s.\n", OSDisplayName);
 		}
 
 		atiEyefinityReleaseConfigInfo ( &pDisplaysInfo );
 	}
 	else
 	{
-		printf ( "Eyefinity configuration query failed for display index %i.\n", iOSDisplayIndex);
+		printf ( "Eyefinity configuration query failed for display name %s.\n", OSDisplayName);
 	}
 
     return 0;

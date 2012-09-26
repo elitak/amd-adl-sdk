@@ -1,5 +1,5 @@
 //
-//  Copyright (c) 2008 - 2009 Advanced Micro Devices, Inc.
+//  Copyright (c) 2008 - 2012 Advanced Micro Devices, Inc.
  
 //  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
 //  EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
@@ -21,7 +21,7 @@
 /// \defgroup DEFINES Constants and Definitions
 // @{
 
-/// \defgroup define_misc Muscelaneous Constant Definitions
+/// \defgroup define_misc Miscellaneous Constant Definitions
 // @{
 
 /// \name General Definitions
@@ -37,7 +37,7 @@
 /// Defines the maximum string length
 #define ADL_MAX_PATH                                    256
 /// Defines the maximum number of supported adapters
-#define ADL_MAX_ADAPTERS                               150
+#define ADL_MAX_ADAPTERS                               250
 /// Defines the maxumum number of supported displays
 #define ADL_MAX_DISPLAYS                                150
 /// Defines the maxumum string length for device name
@@ -56,6 +56,8 @@
 #define ADL_DDC_OPTION_SWITCHDDC2              0x00000001
 /// Save command in the registry under a unique key, corresponding to parameter \b iCommandIndex
 #define ADL_DDC_OPTION_RESTORECOMMAND 0x00000002
+/// Combine write-read DDC block access command. 
+#define ADL_DDC_OPTION_COMBOWRITEREAD 0x00000010
 // @}
 
 /// \name Values for
@@ -202,20 +204,23 @@
 /// \defgroup define_displayinfo_connector Display Connector Type
 /// defines for ADLDisplayInfo.iDisplayConnector
 // @{
-#define ADL_DISPLAY_CONTYPE_UNKNOWN			0
-#define ADL_DISPLAY_CONTYPE_VGA				1
-#define ADL_DISPLAY_CONTYPE_DVI_D			2
-#define ADL_DISPLAY_CONTYPE_DVI_I			3
-#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_NTSC		4
-#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_JPN		5
-#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_NONI2C_JPN	6
-#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_NONI2C_NTSC	7
-#define ADL_DISPLAY_CONTYPE_HDMI_TYPE_A			10
-#define ADL_DISPLAY_CONTYPE_HDMI_TYPE_B			11
+#define ADL_DISPLAY_CONTYPE_UNKNOWN                 0
+#define ADL_DISPLAY_CONTYPE_VGA                     1
+#define ADL_DISPLAY_CONTYPE_DVI_D                   2
+#define ADL_DISPLAY_CONTYPE_DVI_I                   3
+#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_NTSC        4
+#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_JPN         5
+#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_NONI2C_JPN  6
+#define ADL_DISPLAY_CONTYPE_ATICVDONGLE_NONI2C_NTSC 7
+#define ADL_DISPLAY_CONTYPE_PROPRIETARY				8
+#define ADL_DISPLAY_CONTYPE_HDMI_TYPE_A             10
+#define ADL_DISPLAY_CONTYPE_HDMI_TYPE_B             11
 #define ADL_DISPLAY_CONTYPE_SVIDEO               	12
-#define ADL_DISPLAY_CONTYPE_COMPOSITE                	13
-#define ADL_DISPLAY_CONTYPE_RCA_3COMPONENT             	14
-#define ADL_DISPLAY_CONTYPE_DISPLAYPORT			15
+#define ADL_DISPLAY_CONTYPE_COMPOSITE               13
+#define ADL_DISPLAY_CONTYPE_RCA_3COMPONENT          14
+#define ADL_DISPLAY_CONTYPE_DISPLAYPORT             15
+#define ADL_DISPLAY_CONTYPE_EDP                     16
+#define ADL_DISPLAY_CONTYPE_WIRELESSDISPLAY         17
 // @}
 
 /// TV Capabilities and Standards
@@ -332,6 +337,7 @@
 #define ADL_BUSTYPE_AGP           1       /* AGP bus                          */
 #define ADL_BUSTYPE_PCIE          2       /* PCI Express bus                  */
 #define ADL_BUSTYPE_PCIE_GEN2     3       /* PCI Express 2nd generation bus   */
+#define ADL_BUSTYPE_PCIE_GEN3     4       /* PCI Express 3rd generation bus   */
 // @}
 
 /// \defgroup define_ws_caps	Workstation Capabilities
@@ -356,7 +362,11 @@
 #define ADL_STEREO_PASSIVE_HORIZ        (1 << 7)
 /// This value indicates that the workstation card supports auto-stereo monitors with vertical interleave. This is also used to set the stereo mode to use the auto-stereo monitor with vertical interleave
 #define ADL_STEREO_PASSIVE_VERT         (1 << 8)
+/// This value indicates that the workstation card supports DeepBitDepth (10 bpp) 
+#define ADL_DEEPBITDEPTH_10BPP_SUPPORTED   (1 << 5)
 
+/// This value indicates that the workstation supports 8-Bit Grayscale
+#define ADL_8BIT_GREYSCALE_SUPPORTED   (1 << 9)
 
 /// Load balancing is supported.
 #define ADL_WORKSTATION_LOADBALANCING_SUPPORTED         0x00000001
@@ -367,6 +377,8 @@
 #define ADL_WORKSTATION_LOADBALANCING_DISABLED          0x00000000
 /// Load balancing is Enabled.
 #define ADL_WORKSTATION_LOADBALANCING_ENABLED           0x00000001
+
+
 
 // @}
 
@@ -690,6 +702,9 @@
 #define ADL_DISPLAY_DISPLAYINFO_MANNER_SUPPORTED_RESERVED2		0x00040000
 #define ADL_DISPLAY_DISPLAYINFO_MANNER_SUPPORTED_RESERVED3		0x00080000
 
+/// Projector display type
+#define ADL_DISPLAY_DISPLAYINFO_SHOWTYPE_PROJECTOR				0x00100000
+
 // @}
 
 
@@ -752,7 +767,7 @@
 ///////////////////////////////////////////////////////////////////////////
 #define ADL_DISPLAY_POSSIBLEMAPRESULT_VALID				0x00000001
 #define ADL_DISPLAY_POSSIBLEMAPRESULT_BEZELSUPPORTED	0x00000002
-
+#define ADL_DISPLAY_POSSIBLEMAPRESULT_OVERLAPSUPPORTED	0x00000004
 
 ///////////////////////////////////////////////////////////////////////////
 // ADL_DISPLAY_MODE_ Definitions 
@@ -862,6 +877,10 @@ enum ADLLARGEDESKTOPTYPE
 #define ADL_DL_I2C_LINE_OEM                0x00000001
 #define ADL_DL_I2C_LINE_OD_CONTROL         0x00000002
 #define ADL_DL_I2C_LINE_OEM2               0x00000003
+#define ADL_DL_I2C_LINE_OEM3               0x00000004
+#define ADL_DL_I2C_LINE_OEM4               0x00000005
+#define ADL_DL_I2C_LINE_OEM5               0x00000006
+#define ADL_DL_I2C_LINE_OEM6               0x00000007
 
 // Max size of I2C data buffer
 #define ADL_DL_I2C_MAXDATASIZE             0x00000040
@@ -870,10 +889,25 @@ enum ADLLARGEDESKTOPTYPE
 #define ADL_DL_I2C_MAXOFFSETLENGTH         0x00000004
 
 
-//values for ADLDisplayProperty.iPropertyType
-#define ADL_DL_DISPLAYPROPERTY_TYPE_UNKNOWN          0
-#define ADL_DL_DISPLAYPROPERTY_TYPE_EXPANSIONMODE    1
-#define ADL_DL_DISPLAYPROPERTY_TYPE_USEUNDERSCANSCALING	2
+/// Values for ADLDisplayProperty.iPropertyType
+#define ADL_DL_DISPLAYPROPERTY_TYPE_UNKNOWN              0
+#define ADL_DL_DISPLAYPROPERTY_TYPE_EXPANSIONMODE        1
+#define ADL_DL_DISPLAYPROPERTY_TYPE_USEUNDERSCANSCALING	 2
+/// Enables ITC processing for HDMI panels that are capable of the feature
+#define ADL_DL_DISPLAYPROPERTY_TYPE_ITCFLAGENABLE        9 
+
+
+/// Values for ADLDisplayContent.iContentType
+/// Certain HDMI panels that support ITC have support for a feature such that, the display on the panel 
+/// can be adjusted to optimize the view of the content being displayed, depending on the type of content.
+#define ADL_DL_DISPLAYCONTENT_TYPE_GRAPHICS		1
+#define ADL_DL_DISPLAYCONTENT_TYPE_PHOTO		2
+#define ADL_DL_DISPLAYCONTENT_TYPE_CINEMA		4	
+#define ADL_DL_DISPLAYCONTENT_TYPE_GAME			8
+
+
+
+
 
 //values for ADLDisplayProperty.iExpansionMode
 #define ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_CENTER        0
@@ -887,6 +921,7 @@ enum ADLLARGEDESKTOPTYPE
 
 /// Display Get Cached EDID flag
 #define ADL_MAX_EDIDDATA_SIZE              256 // number of UCHAR
+#define ADL_MAX_OVERRIDEEDID_SIZE          512 // number of UCHAR
 #define ADL_MAX_EDID_EXTENSION_BLOCKS      3
 
 #define ADL_DL_CONTROLLER_OVERLAY_ALPHA         0
@@ -894,6 +929,7 @@ enum ADLLARGEDESKTOPTYPE
 
 #define ADL_DL_DISPLAY_DATA_PACKET__INFO_PACKET_RESET      0x00000000
 #define ADL_DL_DISPLAY_DATA_PACKET__INFO_PACKET_SET        0x00000001
+#define ADL_DL_DISPLAY_DATA_PACKET__INFO_PACKET_SCAN       0x00000002
 
 ///\defgroup define_display_packet Display Data Packet Types
 // @{
@@ -922,9 +958,10 @@ enum ADLLARGEDESKTOPTYPE
 
 // Possible values for lpOperationResult
 // ADL_Display_PowerXpressActiveGPU_Get()
-#define ADL_DL_POWERXPRESS_SWITCH_RESULT_STARTED         1 // Switch procedure has been started
-#define ADL_DL_POWERXPRESS_SWITCH_RESULT_DECLINED        2 // Switch procedure cannot be started
-#define ADL_DL_POWERXPRESS_SWITCH_RESULT_ALREADY         3 // System already has required status 
+#define ADL_DL_POWERXPRESS_SWITCH_RESULT_STARTED         1 // Switch procedure has been started - Windows platform only
+#define ADL_DL_POWERXPRESS_SWITCH_RESULT_DECLINED        2 // Switch procedure cannot be started - All platforms
+#define ADL_DL_POWERXPRESS_SWITCH_RESULT_ALREADY         3 // System already has required status  - All platforms
+#define ADL_DL_POWERXPRESS_SWITCH_RESULT_DEFERRED        5  // Switch was deferred and requires an X restart - Linux platform only
 
 // PowerXpress support version
 // ADL_Display_PowerXpressVersion_Get()
@@ -980,6 +1017,7 @@ enum ADLLARGEDESKTOPTYPE
 #define ADL_ASIC_FIREMV		(1 << 3)
 #define ADL_ASIC_XGP		(1 << 4)
 #define ADL_ASIC_FUSION		(1 << 5)
+#define ADL_ASIC_FIRESTREAM (1 << 6)
 // @}
 
 ///\defgroup define_detailed_timing_flags Detailed Timimg Flags
@@ -1059,6 +1097,245 @@ enum ADLLARGEDESKTOPTYPE
 #define ADL_DISPLAY_BEZELOFFSET_COMMIT					0x00000008
 
 // @}
+
+///\defgroup define_powerxpress_constants PowerXpress Definitions
+// @{
+
+/// The bit mask identifies PX caps for ADLPXConfigCaps.iPXConfigCapMask and ADLPXConfigCaps.iPXConfigCapValue
+#define	ADL_PX_CONFIGCAPS_SPLASHSCREEN_SUPPORT		0x0001
+#define	ADL_PX_CONFIGCAPS_CF_SUPPORT				0x0002
+#define	ADL_PX_CONFIGCAPS_MUXLESS					0x0004
+#define	ADL_PX_CONFIGCAPS_PROFILE_COMPLIANT			0x0008
+#define	ADL_PX_CONFIGCAPS_NON_AMD_DRIVEN_DISPLAYS	0x0010
+#define ADL_PX_CONFIGCAPS_FIXED_SUPPORT             0x0020
+#define ADL_PX_CONFIGCAPS_DYNAMIC_SUPPORT           0x0040
+#define ADL_PX_CONFIGCAPS_HIDE_AUTO_SWITCH			0x0080
+
+/// The bit mask identifies PX schemes for ADLPXSchemeRange
+#define ADL_PX_SCHEMEMASK_FIXED						0x0001
+#define ADL_PX_SCHEMEMASK_DYNAMIC					0x0002
+
+/// PX Schemes
+typedef enum _ADLPXScheme
+{
+    ADL_PX_SCHEME_INVALID   = 0,
+    ADL_PX_SCHEME_FIXED     = ADL_PX_SCHEMEMASK_FIXED,
+    ADL_PX_SCHEME_DYNAMIC   = ADL_PX_SCHEMEMASK_DYNAMIC,
+}ADLPXScheme;
+
+/// Just keep the old definitions for compatibility, need to be removed later
+typedef enum PXScheme
+{
+	PX_SCHEME_INVALID   = 0,
+	PX_SCHEME_FIXED     = 1,
+	PX_SCHEME_DYNAMIC   = 2
+} PXScheme;
+
+
+// @}
+
+///\defgroup define_appprofiles For Application Profiles
+// @{
+
+#define ADL_APP_PROFILE_FILENAME_LENGTH		64
+#define ADL_APP_PROFILE_TIMESTAMP_LENGTH	32
+#define ADL_APP_PROFILE_VERSION_LENGTH		32
+#define ADL_APP_PROFILE_PROPERTY_LENGTH		64
+
+enum ApplicationListType
+{
+	ADL_PX40_MRU,
+	ADL_PX40_MISSED,
+	ADL_PX40_DISCRETE,
+	ADL_PX40_INTEGRATED,
+
+	ADL_PX40_TOTAL,
+};
+
+typedef enum _ADLProfilePropertyType
+{
+	ADL_PROFILEPROPERTY_TYPE_BINARY		= 0,
+	ADL_PROFILEPROPERTY_TYPE_BOOLEAN,
+	ADL_PROFILEPROPERTY_TYPE_DWORD,
+	ADL_PROFILEPROPERTY_TYPE_QWORD,
+	ADL_PROFILEPROPERTY_TYPE_ENUMERATED,
+	ADL_PROFILEPROPERTY_TYPE_STRING,
+}ADLProfilePropertyType;
+
+// @}
+
+///\defgroup define_dp12 For Display Port 1.2
+// @{
+
+/// Maximum Relative Address Link
+#define ADL_MAX_RAD_LINK_COUNT	15
+
+// @}
+
+///\defgroup defines_gamutspace Driver Supported Gamut Space
+// @{
+
+/// The flags desribes that gamut is related to source or to destination and to overlay or to graphics
+#define ADL_GAMUT_REFERENCE_SOURCE       (1 << 0)
+#define ADL_GAMUT_GAMUT_VIDEO_CONTENT    (1 << 1)
+
+/// The flags are used to describe the source of gamut and how read information from struct ADLGamutData
+#define ADL_CUSTOM_WHITE_POINT           (1 << 0)
+#define ADL_CUSTOM_GAMUT                 (1 << 1)
+
+/// The define means the predefined gamut values  .
+///Driver uses to find entry in the table and apply appropriate gamut space.
+#define ADL_GAMUT_SPACE_CCIR_709     (1 << 0)
+#define ADL_GAMUT_SPACE_CCIR_601     (1 << 1)
+#define ADL_GAMUT_SPACE_ADOBE_RGB    (1 << 2)
+#define ADL_GAMUT_SPACE_CIE_RGB      (1 << 3)
+#define ADL_GAMUT_SPACE_CUSTOM       (1 << 4)
+
+/// Predefine white point values are structed similar to gamut .
+#define ADL_WHITE_POINT_5000K       (1 << 0)
+#define ADL_WHITE_POINT_6500K       (1 << 1)
+#define ADL_WHITE_POINT_7500K       (1 << 2)
+#define ADL_WHITE_POINT_9300K       (1 << 3)
+#define ADL_WHITE_POINT_CUSTOM      (1 << 4)
+
+///gamut and white point coordinates are from 0.0 -1.0 and divider is used to find the real value .
+/// X float = X int /divider
+#define ADL_GAMUT_WHITEPOINT_DIVIDER           10000
+
+///gamma a0 coefficient uses the following divider:
+#define ADL_REGAMMA_COEFFICIENT_A0_DIVIDER       10000000
+///gamma a1 ,a2,a3 coefficients use the following divider:
+#define ADL_REGAMMA_COEFFICIENT_A1A2A3_DIVIDER   1000
+
+///describes whether the coefficients are from EDID or custom user values.
+#define ADL_EDID_REGAMMA_COEFFICIENTS          (1 << 0)
+///Used for struct ADLRegamma.Feature if set use gamma ramp , if missing  use regamma coefficents
+#define ADL_USE_GAMMA_RAMP                     (1 << 4)
+
+// @}
+
+/// \defgroup define_ddcinfo_pixelformats DDCInfo Pixel Formats
+// @{
+/// defines for iPanelPixelFormat  in struct ADLDDCInfo2
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB656                       0x00000001L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB666                       0x00000002L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB888                       0x00000004L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB101010                    0x00000008L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB161616                    0x00000010L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB_RESERVED1                0x00000020L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB_RESERVED2                0x00000040L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_RGB_RESERVED3                0x00000080L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_XRGB_BIAS101010              0x00000100L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_YCBCR444_8BPCC               0x00000200L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_YCBCR444_10BPCC              0x00000400L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_YCBCR444_12BPCC              0x00000800L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_YCBCR422_8BPCC               0x00001000L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_YCBCR422_10BPCC              0x00002000L
+#define ADL_DISPLAY_DDCINFO_PIXEL_FORMAT_YCBCR422_12BPCC              0x00004000L
+// @}
+
+
+
+/// \defgroup define_dbd_state Deep Bit Depth
+// @{
+
+/// defines for ADL_Workstation_DeepBitDepth_Get and  ADL_Workstation_DeepBitDepth_Set functions
+// This value indicates that the deep bit depth state is forced off
+#define ADL_DEEPBITDEPTH_FORCEOFF 	0 
+/// This value indicates that the deep bit depth state  is set to auto, the driver will automatically enable the 
+/// appropriate deep bit depth state depending on what connected display supports.
+#define ADL_DEEPBITDEPTH_10BPP_AUTO 	1
+/// This value indicates that the deep bit depth state  is forced on to 10 bits per pixel, this is regardless if the display 
+/// supports 10 bpp.
+#define ADL_DEEPBITDEPTH_10BPP_FORCEON 	2
+
+/// defines for ADLAdapterConfigMemory of ADL_Adapter_ConfigMemory_Get
+/// If this bit is set, it indicates that the Deep Bit Depth pixel is set on the display
+#define ADL_ADAPTER_CONFIGMEMORY_DBD			(1 << 0)
+/// If this bit is set, it indicates that the display is rotated (90, 180 or 270)
+#define ADL_ADAPTER_CONFIGMEMORY_ROTATE			(1 << 1)
+/// If this bit is set, it indicates that passive stereo is set on the display
+#define ADL_ADAPTER_CONFIGMEMORY_STEREO_PASSIVE	(1 << 2)
+/// If this bit is set, it indicates that the active stereo is set on the display
+#define ADL_ADAPTER_CONFIGMEMORY_STEREO_ACTIVE	(1 << 3)
+/// If this bit is set, it indicates that the tear free vsync is set on the display
+#define ADL_ADAPTER_CONFIGMEMORY_ENHANCEDVSYNC	(1 << 4)
+#define ADL_ADAPTER_CONFIGMEMORY_TEARFREEVSYNC	(1 << 4)
+/// @}
+
+/// \defgroup define_adl_validmemoryrequiredfields Memory Type
+/// @{
+
+///  This group defines memory types in ADLMemoryRequired struct \n
+/// Indicates that this is the visible memory
+#define ADL_MEMORYREQTYPE_VISIBLE				(1 << 0)
+/// Indicates that this is the invisible memory.
+#define ADL_MEMORYREQTYPE_INVISIBLE				(1 << 1)
+/// Indicates that this is amount of visible memory per GPU that should be reserved for all other allocations.
+#define ADL_MEMORYREQTYPE_GPURESERVEDVISIBLE	(1 << 2)
+/// @}
+
+/// \defgroup define_adapter_tear_free_status
+/// Used in ADL_Adapter_TEAR_FREE_Set and ADL_Adapter_TFD_Get functions to indicate the tear free
+/// desktop status.
+/// @{
+/// Tear free desktop is enabled.
+#define ADL_ADAPTER_TEAR_FREE_ON				1
+/// Tear free desktop can't be enabled due to a lack of graphic adapter memory.
+#define ADL_ADAPTER_TEAR_FREE_NOTENOUGHMEM		-1
+/// Tear free desktop can't be enabled due to quad buffer stereo being enabled.
+#define ADL_ADAPTER_TEAR_FREE_OFF_ERR_QUADBUFFERSTEREO	-2
+/// Tear free desktop is disabled.
+#define ADL_ADAPTER_TEAR_FREE_OFF				0
+/// @}
+
+/// \defgroup define_adapter_crossdisplay_platforminfo
+/// Used in ADL_Adapter_CrossDisplayPlatformInfo_Get function to indicate the Crossdisplay platform info.
+/// @{
+/// CROSSDISPLAY platform.
+#define ADL_CROSSDISPLAY_PLATFORM					(1 << 0)
+/// CROSSDISPLAY platform for Lasso station.
+#define ADL_CROSSDISPLAY_PLATFORM_LASSO				(1 << 1)
+/// CROSSDISPLAY platform for docking station.
+#define ADL_CROSSDISPLAY_PLATFORM_DOCKSTATION		(1 << 2)
+/// @}
+
+/// \defgroup define_adapter_crossdisplay_option
+/// Used in ADL_Adapter_CrossdisplayInfoX2_Set function to indicate cross display options.
+/// @{
+/// Checking if 3D application is runnning. If yes, not to do switch, return ADL_OK_WAIT; otherwise do switch.
+#define ADL_CROSSDISPLAY_OPTION_NONE			0
+/// Force switching without checking for running 3D applications
+#define ADL_CROSSDISPLAY_OPTION_FORCESWITCH		(1 << 0)
+/// @}
+
+/// \defgroup define_adapter_states Adapter Capabilities
+/// These defines the capabilities supported by an adapter. It is used by \ref ADL_Adapter_ConfigureState_Get
+/// @{
+/// Indicates that the adapter is headless (i.e. no displays can be connected to it)
+#define ADL_ADAPTERCONFIGSTATE_HEADLESS ( 1 << 2 )
+/// Indicates that the adapter is configured to define the main rendering capabilities. For example, adapters
+/// in Crossfire(TM) configuration, this bit would only be set on the adapter driving the display(s).
+#define ADL_ADAPTERCONFIGSTATE_REQUISITE_RENDER ( 1 << 0 )
+/// Indicates that the adapter is configured to be used to unload some of the rendering work for a particular
+/// requisite rendering adapter. For eample, for adapters in a Crossfire configuration, this bit would be set
+/// on all adapters that are currently not driving the display(s)
+#define ADL_ADAPTERCONFIGSTATE_ANCILLARY_RENDER ( 1 << 1 )
+/// @}
+
+/// \defgroup define_controllermode_ulModifiers 
+/// These defines the detailed actions supported by set viewport. It is used by \ref ADL_Display_ViewPort_Set
+/// @{
+/// Indicate that the viewport set will change the view position
+#define ADL_CONTROLLERMODE_CM_MODIFIER_VIEW_POSITION       0x00000001
+/// Indicate that the viewport set will change the view PanLock
+#define ADL_CONTROLLERMODE_CM_MODIFIER_VIEW_PANLOCK        0x00000002
+/// Indicate that the viewport set will change the view size
+#define ADL_CONTROLLERMODE_CM_MODIFIER_VIEW_SIZE           0x00000008
+/// @}
+
+
+// End Bracket for Constants and Definitions. Add new groups ABOVE this line!
 
 // @}
 #endif /* ADL_DEFINES_H_ */

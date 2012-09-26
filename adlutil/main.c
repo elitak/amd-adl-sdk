@@ -14,8 +14,16 @@
 #if defined (LINUX)
 #include "../include/adl_sdk.h"
 #include <dlfcn.h>	//dyopen, dlsym, dlclose
+#include <errno.h> // fopen_s
 #include <stdlib.h>	
 #include <string.h>	//memeset
+
+// Linux equivalent of sprintf_s
+#define sprintf_s snprintf
+// Linux equivalent of fscanf_s
+#define fscanf_s fscanf
+// Linux equivalent of GetProcAddress
+#define GetProcAddress dlsym
 
 #else
 #include <windows.h>
@@ -73,11 +81,20 @@ void __stdcall ADL_Main_Memory_Free ( void** lpBuffer )
 enum	COMMAND	{ NONE, GETALL, GETMODE, SETMODE, INFOOVER, SETOVER, GETLIST, GENERATE, BIOSINFO };
 
 #if defined (LINUX)
-// equivalent functions in linux
-void * GetProcAddress( void * pLibrary, const char * name)
+// Linux equivalent function of fopen_s
+int fopen_s ( FILE ** file, const char *filename, const char *mode )
 {
-    return dlsym( pLibrary, name);
+	if ( NULL == file )
+		return EINVAL;
+
+	( *file ) = fopen ( filename, mode );
+
+	if ( NULL != *file )
+		return 0;
+	else
+		return errno;
 }
+
 #endif
 
 #if defined (LINUX)
@@ -442,7 +459,7 @@ int main( int argc, char *argv[] )
 				if ( 0 == iActive || ADL_OK != ADL_Err)
 					continue;
 
-				ADL_Main_Memory_Free ( &lpAdlDisplayInfo );
+				ADL_Main_Memory_Free ( (void **)&lpAdlDisplayInfo );
 
 				ADL_Err = ADL_Display_DisplayInfo_Get (iAdapterIndex, &iNumDisplays, &lpAdlDisplayInfo, 1);
 
@@ -514,7 +531,7 @@ int main( int argc, char *argv[] )
 												ADL_Err = AdlDisplayModeInfoToFile( file, iAdapterIndex, iDisplayIndex, &lpModeInfoList[ k ] );
 										}
 								}
-							   ADL_Main_Memory_Free ( &lpModeInfoList );
+							   ADL_Main_Memory_Free ( (void **)&lpModeInfoList );
 						}
 
 						if ( GENERATE == command )
@@ -837,6 +854,7 @@ int OpenADL()
 	int ADL_Err = ADL_ERR;
 
 #if defined (LINUX)
+	char sztemp[256];
     sprintf(sztemp,"libatiadlxx.so");
     hDLL = dlopen( sztemp, RTLD_LAZY|RTLD_GLOBAL);
 #else
@@ -875,8 +893,8 @@ void CloseADL()
 	if ( NULL != file2 )
 		fclose( file2 );
 
-		ADL_Main_Memory_Free ( &lpAdapterInfo );
-		ADL_Main_Memory_Free ( &lpAdlDisplayInfo );
+		ADL_Main_Memory_Free ( (void **)&lpAdapterInfo );
+		ADL_Main_Memory_Free ( (void **)&lpAdlDisplayInfo );
 	   
 		ADL_Main_Control_Destroy = (ADL_MAIN_CONTROL_DESTROY)GetProcAddress(hDLL,"ADL_Main_Control_Destroy");
 		if ( NULL != ADL_Main_Control_Destroy )

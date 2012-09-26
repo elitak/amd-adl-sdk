@@ -1,5 +1,5 @@
 ///
-///  Copyright (c) 2008 - 2009 Advanced Micro Devices, Inc.
+///  Copyright (c) 2008 - 2012 Advanced Micro Devices, Inc.
  
 ///  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
 ///  EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
@@ -118,6 +118,33 @@ typedef struct ADLMemoryInfo
 } ADLMemoryInfo, *LPADLMemoryInfo;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about memory required by type
+///
+/// This structure is returned by ADL_Adapter_ConfigMemory_Get, which given a desktop and display configuration
+/// will return the Memory used.
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct ADLMemoryRequired
+{
+	long long iMemoryReq;		/// Memory in bytes required
+	int iType;					/// Type of Memory \ref define_adl_validmemoryrequiredfields
+	int iDisplayFeatureValue;   /// Display features \ref define_adl_visiblememoryfeatures that are using this type of memory
+} ADLMemoryRequired, *LPADLMemoryRequired;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about the features associated with a display
+///
+/// This structure is a parameter to ADL_Adapter_ConfigMemory_Get, which given a desktop and display configuration
+/// will return the Memory used.
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct ADLMemoryDisplayFeatures
+{
+	int iDisplayIndex;			/// ADL Display index
+	int iDisplayFeatureValue;	/// features that the display is using \ref define_adl_visiblememoryfeatures
+} ADLMemoryDisplayFeatures, *LPADLMemoryDisplayFeatures;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 ///\brief Structure containing DDC information.
 ///
 /// This structure is used to store various DDC information that can be returned to the user.
@@ -151,6 +178,50 @@ typedef struct ADLDDCInfo
 /// Return EDID flags.
     int  ulDDCInfoFlag;
 } ADLDDCInfo, *LPADLDDCInfo;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing DDC information.
+///
+/// This structure is used to store various DDC information that can be returned to the user.
+/// Note that all fields of type int are actually defined as unsigned int types within the driver.
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct ADLDDCInfo2
+{
+/// Size of the structure
+    int  ulSize;
+/// Indicates whether the attached display supports DDC. If this field is zero on return, no other DDC 
+/// information fields will be used.
+    int  ulSupportsDDC;
+/// Returns the manufacturer ID of the display device. Should be zeroed if this information is not available.
+    int  ulManufacturerID;
+/// Returns the product ID of the display device. Should be zeroed if this information is not available.
+    int  ulProductID;
+/// Returns the name of the display device. Should be zeroed if this information is not available.
+    char cDisplayName[ADL_MAX_DISPLAY_NAME];
+/// Returns the maximum Horizontal supported resolution. Should be zeroed if this information is not available.
+    int  ulMaxHResolution;
+/// Returns the maximum Vertical supported resolution. Should be zeroed if this information is not available.
+    int  ulMaxVResolution;
+/// Returns the maximum supported refresh rate. Should be zeroed if this information is not available.
+    int  ulMaxRefresh;
+/// Returns the display device preferred timing mode's horizontal resolution.
+    int  ulPTMCx;
+/// Returns the display device preferred timing mode's vertical resolution.
+    int  ulPTMCy;
+/// Returns the display device preferred timing mode's refresh rate.
+    int  ulPTMRefreshRate;
+/// Return EDID flags.
+    int  ulDDCInfoFlag;
+// Returns 1 if the display supported packed pixel, 0 otherwise
+    int bPackedPixelSupported;
+// Returns the Pixel formats the display supports \ref define_ddcinfo_pixelformats
+    int iPanelPixelFormat;
+/// Return EDID serial ID.
+    int  ulSerialID;
+// Reserved for future use
+    int iReserved[26];
+} ADLDDCInfo2, *LPADLDDCInfo2;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 ///\brief Structure containing information controller Gamma settings.
@@ -304,7 +375,36 @@ typedef struct ADLDisplayInfo
 	int  iDisplayInfoValue; 
 } ADLDisplayInfo, *LPADLDisplayInfo;
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about the display port MST device.
+///
+/// This structure is used to store various MST information about the display port device.  This 
+/// information can be returned to the user, or used to access various driver calls to 
+/// fetch various display-device-related settings upon the user's request
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct ADLDisplayDPMSTInfo
+{
+	/// The ADLDisplayID structure
+	ADLDisplayID displayID;
+	
+	/// total bandwidth available on the DP connector
+	int	iTotalAvailableBandwidthInMpbs;
+	/// bandwidth allocated to this display
+	int	iAllocatedBandwidthInMbps;
 
+	// info from DAL DpMstSinkInfo
+	/// string identifier for the display
+	char	strGlobalUniqueIdentifier[ADL_MAX_PATH]; 
+
+	/// The link count of relative address, rad[0] upto rad[linkCount] are valid
+	int		radLinkCount;
+	/// The physical connector ID, used to identify the physical DP port
+	int		iPhysicalConnectorID;
+	
+	/// Relative address, address scheme starts from source side
+	char	rad[ADL_MAX_RAD_LINK_COUNT];
+} ADLDisplayDPMSTInfo, *LPADLDisplayDPMSTInfo;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 ///\brief Structure containing the display mode definition used per controller.
@@ -400,7 +500,7 @@ typedef struct ADLDisplayProperty
   int iSize;	
 /// Must be set to \ref ADL_DL_DISPLAYPROPERTY_TYPE_EXPANSIONMODE or \ref ADL_DL_DISPLAYPROPERTY_TYPE_USEUNDERSCANSCALING
   int iPropertyType;
-/// Get or Set \ref ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_CENTER or \ref ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_FULLSCREEN or \ref ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_ASPECTRATIO
+/// Get or Set \ref ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_CENTER or \ref ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_FULLSCREEN or \ref ADL_DL_DISPLAYPROPERTY_EXPANSIONMODE_ASPECTRATIO or \ref ADL_DL_DISPLAYPROPERTY_TYPE_ITCFLAGENABLE
   int iExpansionMode;
 /// Display Property supported? 1: Supported, 0: Not supported
   int iSupport;
@@ -456,7 +556,7 @@ typedef struct ADLI2C
 ///\brief Structure containing information about EDID data.
 ///
 /// This structure is used to store the information about EDID data for the adapter.
-/// This structure is used by the ADL_Display_EdidData_Get() function.
+/// This structure is used by the ADL_Display_EdidData_Get() and ADL_Display_EdidData_Set() functions.
 /// \nosubgrouping
 ////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct ADLDisplayEDIDData
@@ -1015,7 +1115,8 @@ typedef struct ADLAdapterLocation
 	int iDevice;
 /// Function number : 3 bits
 	int iFunction;
-} ADLAdapterLocation;
+} ADLAdapterLocation,ADLBdf;
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /// \brief Structure containing information about MultiVPU capabilities.
@@ -1519,8 +1620,133 @@ typedef struct ADLBezelOffsetSteppingSize
 
 } ADLBezelOffsetSteppingSize, *LPADLBezelOffsetSteppingSize;
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about driver supported PowerExpress Config Caps
+///
+/// This structure is used to store the driver supported PowerExpress Config Caps
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct ADLPXConfigCaps
+{
+    /// The Persistent logical Adapter Index.
+    int iAdapterIndex; 
 
+    /// The bit mask identifies the number of bits PowerExpress Config Caps is currently using. It is the sum of all the bit definitions defined in \ref ADL_PX_CONFIGCAPS_XXXX.
+    int  iPXConfigCapMask; 
+
+    /// The bit mask identifies the PowerExpress Config Caps value. The detailed definition is in \ref ADL_PX_CONFIGCAPS_XXXX.
+    int  iPXConfigCapValue; 
+
+} ADLPXConfigCaps, *LPADLPXConfigCaps;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about an application
+///
+/// This structure is used to store basic information of an application
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct _ADLApplicationData
+{
+	/// Path Name
+	char strPathName[ADL_MAX_PATH];
+	/// File Name
+	char strFileName[ADL_APP_PROFILE_FILENAME_LENGTH];
+	/// Creation timestamp
+	char strTimeStamp[ADL_APP_PROFILE_TIMESTAMP_LENGTH];
+	/// Version
+	char strVersion[ADL_APP_PROFILE_VERSION_LENGTH];
+}ADLApplicationData;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information of a property of an application profile
+///
+/// This structure is used to store property information of an application profile
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct _PropertyRecord
+{
+	/// Property Name
+	char strName [ADL_APP_PROFILE_PROPERTY_LENGTH];
+	/// Property Type
+	ADLProfilePropertyType eType;
+	/// Data Size in bytes
+	int iDataSize;
+	/// Property Value, can be any data type
+	unsigned char uData[1];
+}PropertyRecord;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about an application profile
+///
+/// This structure is used to store information of an application profile
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct _ADLApplicationProfile
+{
+	/// Number of properties
+	int iCount;
+	/// Buffer to store all property records
+	PropertyRecord record[1];
+}ADLApplicationProfile;
 
 // @}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about an OD5 Power Control feature
+///
+/// This structure is used to store information of an Power Control feature
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct ADLPowerControlInfo 
+{
+/// Minimum value.
+int iMinValue; 
+/// Maximum value.
+int iMaxValue;
+/// The minimum change in between minValue and maxValue.
+int iStepValue;  
+ } ADLPowerControlInfo;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///\brief Structure containing information about an controller mode
+///
+/// This structure is used to store information of an controller mode
+/// \nosubgrouping
+////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct _ADLControllerMode
+{
+    /// This falg indicates actions that will be applied by set viewport
+    /// The value can be a combination of ADL_CONTROLLERMODE_CM_MODIFIER_VIEW_POSITION,
+    /// ADL_CONTROLLERMODE_CM_MODIFIER_VIEW_PANLOCK and ADL_CONTROLLERMODE_CM_MODIFIER_VIEW_SIZE
+    int iModifiers;            
+
+    /// Horizontal view starting position
+    int iViewPositionCx;       
+
+    /// Vertical view starting position
+    int iViewPositionCy;       
+
+    /// Horizontal left panlock position
+    int iViewPanLockLeft;      
+
+    /// Horizontal right panlock position
+    int iViewPanLockRight;     
+
+    /// Vertical top panlock position
+    int iViewPanLockTop;       
+
+    /// Vertical bottom panlock position
+    int iViewPanLockBottom;    
+
+    /// View resolution in pixels (width)
+    int iViewResolutionCx;     
+
+    /// View resolution in pixels (hight)
+    int iViewResolutionCy;     
+}ADLControllerMode;
+
+      
 #endif /* ADL_STRUCTURES_H_ */
 
